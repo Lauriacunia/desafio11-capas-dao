@@ -1,7 +1,7 @@
-import cartModel from "../repository/mongo/models/cart.model.js";
-import BaseService from "./base.service.js";
+import cartModel from "../../models/cart.model.js";
+import BaseMongoDao from "./base.mongo.dao.js";
 
-class CartService extends BaseService {
+class CartMongoDao extends BaseMongoDao {
   constructor() {
     super(cartModel);
   }
@@ -97,4 +97,4 @@ class CartService extends BaseService {
   }
 }
 
-export default new CartService();
+export default new CartMongoDao();

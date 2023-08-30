@@ -1,7 +1,7 @@
-import BaseService from "./base.service.js";
-import productsModel from "../repository/mongo/models/product.model.js";
+import BaseMongoDao from "./base.mongo.dao.js";
+import productsModel from "../../models/product.model.js";
 
-class ProductService extends BaseService {
+class ProductMongoDao extends BaseMongoDao {
   constructor() {
     super(productsModel);
   }
@@ -33,4 +33,4 @@ class ProductService extends BaseService {
   }
 }
 
-export default new ProductService();
+export default new ProductMongoDao();

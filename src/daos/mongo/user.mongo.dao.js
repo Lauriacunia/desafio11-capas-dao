@@ -1,6 +1,6 @@
-import BaseService from "./base.service.js";
-import userModel from "../repository/mongo/models/user.model.js";
-class UserService extends BaseService {
+import BaseMongoDao from "./base.mongo.dao.js";
+import userModel from "../../models/user.model.js";
+class UserMongoDao extends BaseMongoDao {
   constructor() {
     super(userModel);
   }
@@ -23,4 +23,4 @@ class UserService extends BaseService {
   }
 }
 
-export default new UserService();
+export default new UserMongoDao();

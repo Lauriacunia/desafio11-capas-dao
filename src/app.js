@@ -15,11 +15,12 @@ import {
   passportSession,
 } from "./config/session-config.js";
 import flash from "connect-flash";
+import CONFIG from "./config/config.js";
 
 /** ★━━━━━━━━━━━★ variables ★━━━━━━━━━━━★ */
 
 const app = express();
-const PORT = 8080 || process.env.PORT;
+const { PORT } = CONFIG;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

@@ -16,6 +16,6 @@ export const connectMongoDB = async () => {
     await mongoose.connect(config.mongoDB.URL, config.mongoDB.options);
     console.log("Connected to Mongo Atlas");
   } catch (error) {
-    console.log("Error en la conexión con Mongo Atlas", error);
+    console.log("Error Conect BD Mongo Atlas", error);
   }
 };

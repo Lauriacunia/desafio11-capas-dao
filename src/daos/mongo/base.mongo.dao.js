@@ -1,4 +1,4 @@
-export default class BaseService {
+export default class BaseMongoDao {
   constructor(model) {
     this.db = model;
   }
