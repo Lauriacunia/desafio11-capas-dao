@@ -4,9 +4,9 @@ dotenv.config();
 import { Strategy as LocalStrategy } from "passport-local";
 // passport-github2
 import { Strategy as GitHubStrategy } from "passport-github2";
-import userService from "../services/user.service.js";
-import cartService from "../services/cart.service.js";
 import { encryptPassword, comparePassword } from "../config/bcrypt.js";
+import getDAOS from "../daos/daos.factory.js";
+const { userDao, cartDao } = getDAOS();
 
 const localStrategy = LocalStrategy;
 const githubStrategy = GitHubStrategy;
@@ -35,7 +35,7 @@ passport.use(
     },
     async (req, email, password, done) => {
       // done es un callback que se ejecuta cuando termina la funcion
-      const usuarioSaved = await userService.getUserByEmail({ email });
+      const usuarioSaved = await userDao.getUserByEmail({ email });
       if (usuarioSaved) {
         req.flash(
           "errorMessage",
@@ -45,7 +45,7 @@ passport.use(
       } else {
         const hashPass = await encryptPassword(password);
         /** create new Cart */
-        const newCart = await cartService.create();
+        const newCart = await cartDao.create();
         const newUser = {
           first_name: req.body.first_name,
           last_name: req.body.last_name,
@@ -55,7 +55,7 @@ passport.use(
           password: hashPass,
           role: req.body.role || "user",
         };
-        const response = await userService.create(newUser);
+        const response = await userDao.create(newUser);
         console.log("Nuevo usuario registrado: ", response);
         return done(null, response);
       }
@@ -75,7 +75,7 @@ passport.use(
       // aunque no se use el req, hay que ponerlo para que funcione
       // done es un callback que se ejecuta cuando termina la funcion
 
-      const usuarioSaved = await userService.getUserByEmail({ email });
+      const usuarioSaved = await userDao.getUserByEmail({ email });
       if (!usuarioSaved) {
         req.flash(
           "errorMessage",
@@ -109,7 +109,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await userService.getOne(id);
+  const user = await userDao.getOne(id);
   done(null, user);
 });
 
@@ -140,13 +140,13 @@ passport.use(
         username: profile.username,
         password: null, // no tenemos password pero lo necesita el modelo
       };
-      const userSaved = await userService.getUserByUsername({
+      const userSaved = await userDao.getUserByUsername({
         username: user.username,
       });
       if (userSaved) {
         return done(null, userSaved);
       } else {
-        const response = await userService.create(user);
+        const response = await userDao.create(user);
         return done(null, response);
       }
     }

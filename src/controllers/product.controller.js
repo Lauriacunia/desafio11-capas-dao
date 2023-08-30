@@ -1,4 +1,5 @@
-import productService from "../services/product.service.js";
+import getDAOS from "../daos/daos.factory.js";
+const { productDao } = getDAOS();
 class ProductController {
   async viewAll(req, res) {
     try {
@@ -9,7 +10,7 @@ class ProductController {
        */
       const { limit, page, sort, query } = req.query;
 
-      const products = await productService.getAll(limit, page, sort, query);
+      const products = await productDao.getAll(limit, page, sort, query);
       products
         ? res.status(200).json({
             status: "success",
@@ -27,7 +28,7 @@ class ProductController {
   async getOne(req, res) {
     try {
       const id = req.params.id;
-      const product = await productService.getOne(id);
+      const product = await productDao.getOne(id);
       product
         ? res.status(200).json({
             status: "success",
@@ -50,7 +51,7 @@ class ProductController {
     try {
       const newProduct = req.body;
       // validate code not repeated
-      const response = await productService.getAll();
+      const response = await productDao.getAll();
       const allProducts = response.docs;
       const product = allProducts.find(
         (product) => product.code == newProduct.code
@@ -63,7 +64,7 @@ class ProductController {
         });
         return;
       }
-      const productCreated = await productService.create(newProduct);
+      const productCreated = await productDao.create(newProduct);
 
       res.status(201).json({
         status: "success",
@@ -81,7 +82,7 @@ class ProductController {
     try {
       const id = req.params.id;
       const newProduct = req.body;
-      const productUpdated = await productService.update(id, newProduct);
+      const productUpdated = await productDao.update(id, newProduct);
       res.status(200).json({
         status: "success",
         payload: productUpdated,
@@ -96,7 +97,7 @@ class ProductController {
   async deleteOne(req, res) {
     try {
       const id = req.params.id;
-      const productDeleted = await productService.delete(id);
+      const productDeleted = await productDao.delete(id);
       res.status(200).json({
         status: "success",
         payload: productDeleted,

@@ -14,7 +14,7 @@ switch (CONFIG.DATASOURCE) {
   }
   case "MONGO": {
     productDao = await import("./mongo/product.mongo.dao.js");
-    carritoDao = await import("./mongo/carrito.mongo.dao.js");
+    carritoDao = await import("./mongo/cart.mongo.dao.js");
     chatDao = await import("./mongo/chat.mongo.dao.js");
     homeDao = await import("./mongo/home.mongo.dao.js");
     userDao = await import("./mongo/user.mongo.dao.js");
