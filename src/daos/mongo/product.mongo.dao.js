@@ -1,7 +1,6 @@
 import BaseMongoDao from "./base.mongo.dao.js";
 import productsModel from "../../models/product.model.js";
-
-class ProductMongoDao extends BaseMongoDao {
+export class ProductMongoDao extends BaseMongoDao {
   constructor() {
     super(productsModel);
   }
@@ -16,9 +15,7 @@ class ProductMongoDao extends BaseMongoDao {
        *  de instancias completas de modelos de Mongoose. */
       /**{ title: 'Iphone X Upd2222' } acceder al value de un objeto
        */
-      const filter = query
-        ? { title: { $regex: query.title, $options: "i" } }
-        : {};
+      const filter = query ? { title: { $regex: query, $options: "i" } } : {};
       /** La "i" de las options hace que no discrimine mayúsculas o minúsculas */
       const all = await this.db.paginate(filter, {
         limit: limit || 10,
@@ -32,5 +29,3 @@ class ProductMongoDao extends BaseMongoDao {
     }
   }
 }
-
-export default new ProductMongoDao();

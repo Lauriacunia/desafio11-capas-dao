@@ -1,6 +1,6 @@
 import BaseMongoDao from "./base.mongo.dao.js";
 import userModel from "../../models/user.model.js";
-class UserMongoDao extends BaseMongoDao {
+export class UserMongoDao extends BaseMongoDao {
   constructor() {
     super(userModel);
   }
@@ -22,5 +22,3 @@ class UserMongoDao extends BaseMongoDao {
     }
   }
 }
-
-export default new UserMongoDao();

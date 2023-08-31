@@ -1,12 +1,13 @@
 import getDAOS from "../daos/daos.factory.js";
 const { productDao } = getDAOS();
+//import productDao from "../daos/mongo/product.mongo.dao.js";
 class ProductController {
   async viewAll(req, res) {
     try {
       /**Deberá poder recibir por query params
        * un limit (opcional), una page (opcional),
        *  un sort (opcional)
-       * y un query (opcional)
+       * y un title (opcional)
        */
       const { limit, page, sort, query } = req.query;
 

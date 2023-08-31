@@ -1,7 +1,7 @@
 import cartModel from "../../models/cart.model.js";
 import BaseMongoDao from "./base.mongo.dao.js";
 
-class CartMongoDao extends BaseMongoDao {
+export class CartMongoDao extends BaseMongoDao {
   constructor() {
     super(cartModel);
   }
@@ -96,5 +96,3 @@ class CartMongoDao extends BaseMongoDao {
     return cartUpdated;
   }
 }
-
-export default new CartMongoDao();

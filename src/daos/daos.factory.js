@@ -1,7 +1,7 @@
 import CONFIG from "../config/config.js";
 
 let productDao;
-let carritoDao;
+let cartDao;
 let chatDao;
 let userDao;
 let homeDao;
@@ -13,12 +13,18 @@ switch (CONFIG.DATASOURCE) {
     break;
   }
   case "MONGO": {
-    productDao = await import("./mongo/product.mongo.dao.js");
-    carritoDao = await import("./mongo/cart.mongo.dao.js");
-    chatDao = await import("./mongo/chat.mongo.dao.js");
-    homeDao = await import("./mongo/home.mongo.dao.js");
-    userDao = await import("./mongo/user.mongo.dao.js");
-    authDao = await import("./mongo/auth.mongo.dao.js");
+    const { ProductMongoDao } = await import("./mongo/product.mongo.dao.js");
+    productDao = new ProductMongoDao();
+    const { CartMongoDao } = await import("./mongo/cart.mongo.dao.js");
+    cartDao = new CartMongoDao();
+    const { ChatMongoDao } = await import("./mongo/chat.mongo.dao.js");
+    chatDao = new ChatMongoDao();
+    const { HomeMongoDao } = await import("./mongo/home.mongo.dao.js");
+    homeDao = new HomeMongoDao();
+    const { UserMongoDao } = await import("./mongo/user.mongo.dao.js");
+    userDao = new UserMongoDao();
+    const { AuthMongoDao } = await import("./mongo/auth.mongo.dao.js");
+    authDao = new AuthMongoDao();
     break;
   }
   default: {
@@ -31,7 +37,7 @@ switch (CONFIG.DATASOURCE) {
 const getDAOS = () => {
   return {
     productDao,
-    carritoDao,
+    cartDao,
     chatDao,
     homeDao,
     userDao,
