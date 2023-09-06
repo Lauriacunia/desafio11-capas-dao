@@ -1,3 +1,4 @@
+import userDTOResponse from "../dto/responses/user.response.dto.js";
 class AuthController {
   async viewLogin(req, res) {
     try {
@@ -23,7 +24,9 @@ class AuthController {
 
   async getCurrentUser(req, res) {
     try {
-      res.json(req.user);
+      const user = await req.user;
+      const userDTO = new userDTOResponse(user);
+      res.json(userDTO);
     } catch (err) {
       res.status(err.status || 500).json({
         status: "error",
